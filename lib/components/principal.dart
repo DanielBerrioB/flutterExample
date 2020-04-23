@@ -19,10 +19,10 @@ class _Principal extends State<Principal> {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.query(
       QueryOptions(
-        document: queryMutation.getAll(),
+        documentNode: gql(queryMutation.getAll()),
       ),
     );
-    if (!result.hasErrors) {
+    if (result.data != Null) {
       for (var i = 0; i < result.data["persons"].length; i++) {
         setState(() {
           listPerson.add(
