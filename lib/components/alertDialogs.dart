@@ -112,10 +112,10 @@ class _AlertDialogWindow extends State<AlertDialogWindow> {
                   GraphQLClient _client = graphQLConfiguration.clientToQuery();
                   QueryResult result = await _client.mutate(
                     MutationOptions(
-                      document: addMutation.deletePerson(txtId.text),
+                      documentNode: gql(addMutation.deletePerson(txtId.text)),
                     ),
                   );
-                  if (!result.hasErrors) Navigator.of(context).pop();
+                  if (result.data != Null) Navigator.of(context).pop();
                 },
               )
             : null,
@@ -130,15 +130,14 @@ class _AlertDialogWindow extends State<AlertDialogWindow> {
                 GraphQLClient _client = graphQLConfiguration.clientToQuery();
                 QueryResult result = await _client.mutate(
                   MutationOptions(
-                    document: addMutation.addPerson(
-                      txtId.text,
-                      txtName.text,
-                      txtLastName.text,
-                      int.parse(txtAge.text),
-                    ),
-                  ),
+                      documentNode: gql(addMutation.addPerson(
+                    txtId.text,
+                    txtName.text,
+                    txtLastName.text,
+                    int.parse(txtAge.text),
+                  ))),
                 );
-                if (!result.hasErrors) {
+                if (result.data != Null) {
                   txtId.clear();
                   txtName.clear();
                   txtLastName.clear();
@@ -149,15 +148,14 @@ class _AlertDialogWindow extends State<AlertDialogWindow> {
                 GraphQLClient _client = graphQLConfiguration.clientToQuery();
                 QueryResult result = await _client.mutate(
                   MutationOptions(
-                    document: addMutation.editPerson(
-                      txtId.text,
-                      txtName.text,
-                      txtLastName.text,
-                      int.parse(txtAge.text),
-                    ),
-                  ),
+                      documentNode: gql(addMutation.editPerson(
+                    txtId.text,
+                    txtName.text,
+                    txtLastName.text,
+                    int.parse(txtAge.text),
+                  ))),
                 );
-                if (!result.hasErrors) {
+                if (result.data != Null) {
                   txtId.clear();
                   txtName.clear();
                   txtLastName.clear();
